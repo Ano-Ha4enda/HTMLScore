@@ -1,0 +1,14 @@
+Song1
+A
+Rintaro
+2
+
+@C,,,,F,,,,G
+column 1だよ
+
+@F,,,G,,,,C
+column 2だよ
+column 3だよ
+@C,,F,,G
+@F,,,,G,,,,C
+column 4だね
