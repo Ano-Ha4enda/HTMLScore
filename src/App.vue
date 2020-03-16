@@ -8,8 +8,9 @@
           {{ tp.text }}
         </option>
       </select>
-      <div class="info-val"> Artist: {{ Artist }} &nbsp;ScrollSpeed:</div>
-      <input type="number" v-model="scrollSpeed">
+      <div v-if="Artist" class="info-val"> Artist: {{ Artist }} </div>
+      <div class="info-val">&nbsp;ScrollSpeed:</div>
+      <input type="number" v-model="scrollSpeed" style="width:30px">
     </div>
     <div class="word" v-for="word in Words" :key="word.key" @click="scrollAuto">
       <div class="code" v-if="word.Codes.length">
@@ -160,6 +161,7 @@ export default {
 .info > input {
   float: left;
   margin-right: 10px;
+  width: 30%;
 }
 
 .info > select {
