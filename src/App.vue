@@ -1,19 +1,25 @@
 <template>
   <div id="app" class="main">
     <div class="title">{{ Title }}</div>
-    <p class="info">
+    <div class="info">
       <input type="file" @change="loadTxt">
       <select name="Transepose" v-model="capoToString" >
         <option v-for="tp in Transposes" :key="tp.value">
           {{ tp.text }}
         </option>
       </select>
-      Artist: {{ Artist }}
-    </p>
-    <div v-for="(word, key) in Words" :key="key">
-      <div class="code" v-if="word.Code">{{ word.Code }}</div>
+      <div class="info-val"> Artist: {{ Artist }} &nbsp;ScrollSpeed:</div>
+      <input type="number" v-model="scrollSpeed">
+    </div>
+    <div class="word" v-for="word in Words" :key="word.key" @click="scrollAuto">
+      <div class="code" v-if="word.Codes.length">
+        <template v-for="code in word.Codes">
+          <a v-if="code" :key="code.key">{{ code }}</a>
+          <span v-else :key="code.key"></span>
+        </template>
+      </div>
       <div class="lyric" v-if="word.Lyric">{{ word.Lyric }}</div>
-      <div v-else-if="!word.Code"><br></div>
+      <div v-else-if="!word.Codes.length"><br></div>
     </div>
   </div>
 </template>
@@ -21,12 +27,24 @@
 <script>
 
 export default {
-  name: 'App',
-  components: {
-  },
-  
+  name: 'App',  
   data() {
     return {
+      Title: "Song title",
+      Key: "C",
+      Artist: "",
+      Capo: 0,
+      Words: [
+        {
+          Codes: [
+            "C","","","","G",
+          ],
+          Lyric: "Lyricだよ。"
+        }
+      ],
+
+      scrollSpeed: 10,
+      timer: 0,
       Transposes: [
         { text: "Whole Down", value: -2 },
         { text: "Half Down", value: -1 },
@@ -41,12 +59,6 @@ export default {
         { text: "Capo 8", value: 8 },
         { text: "Capo 9", value: 9 },
       ],
-
-      Title: "Song title",
-      Key: "C",
-      Artist: "",
-      Capo: 0,
-      Words: [],
     }
   },
 
@@ -82,25 +94,41 @@ export default {
                 this.Capo = lines[3];
                 this.Words = [];
                 for (let i = 4; i < lines.length; i++) {
-                    let codeTmp = "";
-                    let lyricTmp = "";
-                    if (lines[i].indexOf("@") == 0) {
-                        codeTmp = lines[i].replace("@", "");
-                        i++;
-                    }
-                    if (lines[i].indexOf("@") == 0) {
-                      i--;
-                    } else {
-                      lyricTmp = lines[i]
-                    }
-                    this.Words.push({ Code: codeTmp, Lyric: lyricTmp });
+                  let codeTmpArr = [];
+                  let lyricTmp = "";
+                  if (lines[i].indexOf("@") == 0) {
+                    codeTmpArr = lines[i].replace("@", "").split(",");
+                    i++;
+                  }
+                  if (lines[i].indexOf("@") == 0) {
+                    i--;
+                  } else {
+                    lyricTmp = lines[i]
+                  }
+                  this.Words.push({ Codes: codeTmpArr, Lyric: lyricTmp });
                 }
             };
         },
 
-        popAlert: function () {
-            alert("alert");
-            console.log("alert");
+        scrollAuto: function() {
+          // スクロール中だったら止まる
+          if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = 0;
+            return console.log("stop pushed");
+          }
+          let duration = (50 - this.scrollSpeed) * 10000;
+          let interval = 100;
+          const step = 5000 / Math.ceil(duration / interval); // 1回に移動する距離
+          this.timer = setInterval(() => {
+            console.log("scroll");
+            window.scrollBy(0, step);   // スクロール位置を移動
+            if(window.scrollY >= 50 + document.body.clientHeight - window.innerHeight) {
+                console.log("stop");
+                clearInterval(this.timer);
+                this.timer = 0;
+            }
+          }, interval);
         },
     }
 }
@@ -117,14 +145,32 @@ export default {
 }
 
 .code {
-    color: blue;
-    font-size: 80%;
+  color: blue;
+  font-size: 80%;
 }
+
+.code > span {
+  margin-right: 2%;
+};
 
 .info {
-    margin: 20px;
+  margin: 20px;
 }
 
+.info > input {
+  float: left;
+  margin-right: 10px;
+}
+
+.info > select {
+  float: left;
+  margin-right: 10px;
+}
+
+.info > .info-val {
+  float: left;
+  margin-right: 10px;
+}
 
 .main {
     background-color: blanchedalmond;
@@ -144,4 +190,9 @@ export default {
 
 .txt {
     font-size: 100%;
-}</style>
+}
+
+.word {
+  clear: both;
+}
+</style>
