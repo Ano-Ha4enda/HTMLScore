@@ -75,38 +75,59 @@ export default {
         },
     },
 
+    // .txtファイル読み込み
     methods: {
         loadTxt: function (e) {
-            console.log("method start");
             let files = e.target.files || e.dataTransfer.files;
-
+            // ファイルが存在しなければ終了
             if (!files.length) {
                 return;
             }
             
+            // FileReaderを実行
             let file = files[0];
             let reader = new FileReader();
             reader.readAsText(file);
+
+            // readerに格納した.txtファイルを読み込み
             reader.onload = () => {
+                // 1行ずつ配列化
                 let lines = reader.result.split("\n");
-                this.Title = lines[0];
-                this.Key = lines[1];
-                this.Artist = lines[2];
-                this.Capo = lines[3];
+                // 歌詞本体部分を初期化
                 this.Words = [];
-                for (let i = 4; i < lines.length; i++) {
-                  let codeTmpArr = [];
-                  let lyricTmp = "";
-                  if (lines[i].indexOf("@") == 0) {
-                    codeTmpArr = lines[i].replace("@", "").split(",");
-                    i++;
-                  }
-                  if (lines[i].indexOf("@") == 0) {
-                    i--;
+                //1行ずつforで処理
+                for (let i = 0; i < lines.length; i++) {
+                  // "Title: "で始まる行であればタイトルと認識
+                  if (lines[i].indexOf("Title:") == 0) {
+                    this.Title = lines[i].replace("Title:", "").trim();
+                  // "Key: "で始まる行であればキーと認識
+                  } else if (lines[i].indexOf("Key:") == 0){
+                    this.Key = lines[i].replace("Key:", "").trim();
+                  // "Artist: "で始まる行であればアーティスト名と認識
+                  } else if (lines[i].indexOf("Artist:") == 0){
+                    this.Artist = lines[i].replace("Artist:", "").trim();
+                  // "Capo: "で始まる行であればカポ位置と認識
+                  } else if (lines[i].indexOf("Capo:") == 0){
+                    this.Capo = lines[i].replace("Capo:", "").trim();
+                  // どれでもなければ歌詞本体と認識、Word[]内にオブジェクトを追加
                   } else {
-                    lyricTmp = lines[i]
+                    let codeTmpArr = [];
+                    let lyricTmp = "";
+                    // @で始まる行はコードと認識
+                    if (lines[i].indexOf("@") == 0) {
+                      codeTmpArr = lines[i].replace("@", "").split(",");
+                      i++;
+                    }
+                    // 次の行もコードが連続する場合、Lyricを空のままWordsに追加、次の行はWords要素に入れる
+                    if (lines[i].indexOf("@") == 0) {
+                      i--;
+                    // @で始まらなければ歌詞と認識する
+                    } else {
+                      lyricTmp = lines[i]
+                    }
+                    // Words[]にコードと歌詞のオブジェクトを追加
+                    this.Words.push({ Codes: codeTmpArr, Lyric: lyricTmp });
                   }
-                  this.Words.push({ Codes: codeTmpArr, Lyric: lyricTmp });
                 }
             };
         },

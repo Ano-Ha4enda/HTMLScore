@@ -1,7 +1,7 @@
-Song1
-A
-Rintaro
-2
+Title: Song1
+Key: A
+Artist: Rintaro
+Capo: 2
 
 @C,,,,F,,,,G
 column 1だよ
