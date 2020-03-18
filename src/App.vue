@@ -10,7 +10,7 @@
       </select>
       <div v-if="Artist" class="info-val"> Artist: {{ Artist }} </div>
       <div class="info-val">&nbsp;ScrollSpeed:</div>
-      <input type="number" v-model="scrollSpeed" style="width:30px">
+      <input type="number" v-model="scrollSpeed" style="width:30px" min="1" max="20">
     </div>
     <div class="word" v-for="word in Words" :key="word.key" @click="scrollAuto">
       <div class="code" v-if="word.Codes.length">
@@ -118,12 +118,10 @@ export default {
             this.timer = 0;
             return console.log("stop pushed");
           }
-          let duration = (50 - this.scrollSpeed) * 10000;
-          let interval = 100;
-          const step = 5000 / Math.ceil(duration / interval); // 1回に移動する距離
+          let interval = 25 * (21 - this.scrollSpeed);
           this.timer = setInterval(() => {
             console.log("scroll");
-            window.scrollBy(0, step);   // スクロール位置を移動
+            window.scrollBy(0, 1);   // スクロール位置を移動
             if(window.scrollY >= 50 + document.body.clientHeight - window.innerHeight) {
                 console.log("stop");
                 clearInterval(this.timer);
@@ -150,9 +148,13 @@ export default {
   font-size: 80%;
 }
 
+.code > a {
+  margin-right: 6px;
+}
+
 .code > span {
-  margin-right: 2%;
-};
+  margin-right: 12px;
+}
 
 .info {
   margin: 20px;
