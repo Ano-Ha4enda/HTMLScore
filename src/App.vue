@@ -109,6 +109,9 @@ export default {
                   // "Capo: "で始まる行であればカポ位置と認識
                   } else if (lines[i].indexOf("Capo:") == 0){
                     this.Capo = lines[i].replace("Capo:", "").trim();
+                  // "ScrollSpeed: "で始まる行であればカポ位置と認識
+                  } else if (lines[i].indexOf("ScrollSpeed:") == 0){
+                    this.scrollSpeed = lines[i].replace("ScrollSpeed:", "").trim();
                   // どれでもなければ歌詞本体と認識、Word[]内にオブジェクトを追加
                   } else {
                     let codeTmpArr = [];

@@ -2,6 +2,7 @@ Title: Song1
 Key: A
 Artist: Rintaro
 Capo: 2
+ScrollSpeed: 12
 
 @C,,,,F,,,,G
 column 1だよ
