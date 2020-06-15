@@ -4,12 +4,12 @@ Artist: Rintaro
 Capo: 2
 ScrollSpeed: 12
 
-@C,,,,F,,,,G
-column 1だよ
+@C;F;G
+column 1;だよ
 
-@F,,,G,,,,C
-column 2だよ
+@F;G;C
+column 2;だよ
 column 3だよ
-@C,,F,,G
-@F,,,,G,,,,C
-column 4だね
+@CM7;FM7;G7
+@F;G;C
+column 4;だね

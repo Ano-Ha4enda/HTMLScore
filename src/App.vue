@@ -12,15 +12,16 @@
       <div class="info-val">&nbsp;ScrollSpeed:</div>
       <input type="number" v-model="scrollSpeed" style="width:30px" min="1" max="20">
     </div>
-    <div class="word" v-for="word in Words" :key="word.key" @click="scrollAuto">
-      <div class="code" v-if="word.Codes.length">
-        <template v-for="code in word.Codes">
-          <a v-if="code" :key="code.key">{{ code }}</a>
-          <span v-else :key="code.key"></span>
-        </template>
-      </div>
-      <div class="lyric" v-if="word.Lyric">{{ word.Lyric }}</div>
-      <div v-else-if="!word.Codes.length"><br></div>
+    <div class="words" @click="scrollAuto">
+      <table v-for="word in Words" :key="word.key">
+        <tr class="code" v-if="word.Codes.length">
+          <td v-for="code in word.Codes" :key="code.key">{{ code }}</td>
+        </tr>
+        <tr class="lyric" v-if="word.Lyrics.length">
+          <td v-for="lyric in word.Lyrics" :key ="lyric.key">{{ lyric }}</td>
+        </tr>
+        <tr v-if="!word.Codes.length && !word.Lyrics.length"></tr>
+      </table>
     </div>
   </div>
 </template>
@@ -38,9 +39,9 @@ export default {
       Words: [
         {
           Codes: [
-            "C","","","","G",
+            "C","G"
           ],
-          Lyric: "Lyricだよ。"
+          Lyrics: ["Lyricだよ。"]
         }
       ],
 
@@ -115,10 +116,10 @@ export default {
                   // どれでもなければ歌詞本体と認識、Word[]内にオブジェクトを追加
                   } else {
                     let codeTmpArr = [];
-                    let lyricTmp = "";
+                    let lyricTmpArr = [];
                     // @で始まる行はコードと認識
                     if (lines[i].indexOf("@") == 0) {
-                      codeTmpArr = lines[i].replace("@", "").split(",");
+                      codeTmpArr = lines[i].replace("@", "").split(";");
                       i++;
                     }
                     // 次の行もコードが連続する場合、Lyricを空のままWordsに追加、次の行はWords要素に入れる
@@ -126,10 +127,10 @@ export default {
                       i--;
                     // @で始まらなければ歌詞と認識する
                     } else {
-                      lyricTmp = lines[i]
+                      lyricTmpArr = lines[i].split(";");
                     }
                     // Words[]にコードと歌詞のオブジェクトを追加
-                    this.Words.push({ Codes: codeTmpArr, Lyric: lyricTmp });
+                    this.Words.push({ Codes: codeTmpArr, Lyrics: lyricTmpArr });
                   }
                 }
             };
@@ -209,18 +210,31 @@ export default {
     padding: 3%;
 }
 
+.lyric > td {
+  padding: 0px;
+  border:0px;
+}
+
 .title {
     font-size: x-large;
     margin-bottom: 20px;
     margin-top: 20px;
     text-align: center;
+    width: 100%;
 }
 
 .txt {
     font-size: 100%;
 }
 
-.word {
+.words {
   clear: both;
+  padding-top: 20px;
 }
+
+.words > table {
+  min-height: 20px;
+  padding-right: 25px;
+}
+
 </style>
