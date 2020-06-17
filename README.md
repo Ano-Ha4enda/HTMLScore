@@ -4,7 +4,7 @@
 
 U-FRET (https://www.ufret.jp/)
 
-\楽器.me (https://gakufu.gakki.me/)
+楽器.me (https://gakufu.gakki.me/)
 
 J-Total music (https://music.j-total.net/)
 
