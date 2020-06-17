@@ -4,7 +4,7 @@
 
 U-FRET (https://www.ufret.jp/)
 
-楽器`.`me (https://gakufu.gakki.me/)
+\楽器.me (https://gakufu.gakki.me/)
 
 J-Total music (https://music.j-total.net/)
 
@@ -33,7 +33,7 @@ J-Total music (https://music.j-total.net/)
 * `Title` 曲のタイトル
 * ` Key` デフォルトはCです
 * `Artist` なければ表示されません
-* `Capo` 1音下げチューニング~10カポまでを想定しています。半角数字(-2~10)で指定してください。デフォルトは0です
+* `Capo` 1音下げチューニング\~10カポまでを想定しています。半角数字(-2\~10)で指定してください。デフォルトは0です
 * `ScrollSpeed` 大きいほど速くスクロールします(上限20)。半角数字で指定してください。デフォルトは10です。
 
 `@`で始まる行はコードとして認識し。それ以外の行は全て歌詞と認識します。空行も歌詞の空行として認識します。
