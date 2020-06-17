@@ -14,13 +14,17 @@
     </div>
     <div class="words" @click="scrollAuto">
       <table v-for="word in Words" :key="word.key">
-        <tr class="code" v-if="word.Codes.length">
-          <td v-for="code in word.Codes" :key="code.key">{{ code }}</td>
+        <tr class="chord" v-if="word.Chords.length">
+          <template v-if="!word.Lyrics.length">
+            <td class="chord-only" v-for="chord in word.Chords" :key="chord.key">{{ chord }}</td>
+          </template><template v-else>
+          <td v-for="chord in word.Chords" :key="chord.key">{{ chord }}</td>
+          </template>
         </tr>
         <tr class="lyric" v-if="word.Lyrics.length">
           <td v-for="lyric in word.Lyrics" :key ="lyric.key">{{ lyric }}</td>
         </tr>
-        <tr v-if="!word.Codes.length && !word.Lyrics.length"></tr>
+        <tr v-if="!word.Chords.length && !word.Lyrics.length"></tr>
       </table>
     </div>
   </div>
@@ -38,10 +42,16 @@ export default {
       Capo: 0,
       Words: [
         {
-          Codes: [
-            "C","G"
-          ],
-          Lyrics: ["Lyricだよ。"]
+          Chords: ["C","F","G"],
+          Lyrics: [],
+        },
+        {
+          Chords: ["C","G"],
+          Lyrics: ["This is lyric"]
+        },
+        {
+          Chords: [],
+          Lyrics: ["Lyrics are shown as here."]
         }
       ],
 
@@ -115,22 +125,24 @@ export default {
                     this.scrollSpeed = lines[i].replace("ScrollSpeed:", "").trim();
                   // どれでもなければ歌詞本体と認識、Word[]内にオブジェクトを追加
                   } else {
-                    let codeTmpArr = [];
+                    let chordTmpArr = [];
                     let lyricTmpArr = [];
                     // @で始まる行はコードと認識
                     if (lines[i].indexOf("@") == 0) {
-                      codeTmpArr = lines[i].replace("@", "").split(";");
+                      chordTmpArr = lines[i].replace("@", "").split(";");
                       i++;
-                    }
-                    // 次の行もコードが連続する場合、Lyricを空のままWordsに追加、次の行はWords要素に入れる
-                    if (lines[i].indexOf("@") == 0) {
-                      i--;
-                    // @で始まらなければ歌詞と認識する
+                      // 次の行もコードが連続する場合、Lyricを空のままWordsに追加、次の行はWords要素に入れる
+                      if (lines[i].indexOf("@") == 0 || lines[i].length == 0) {
+                        i--;
+                      // @で始まらなければ歌詞と認識する
+                      } else {
+                        lyricTmpArr = lines[i].split(";");
+                      } 
                     } else {
                       lyricTmpArr = lines[i].split(";");
                     }
                     // Words[]にコードと歌詞のオブジェクトを追加
-                    this.Words.push({ Codes: codeTmpArr, Lyrics: lyricTmpArr });
+                    this.Words.push({ Chords: chordTmpArr, Lyrics: lyricTmpArr });
                   }
                 }
             };
@@ -168,17 +180,21 @@ export default {
   margin-top: 60px;
 }
 
-.code {
+.chord {
   color: blue;
   font-size: 80%;
 }
 
-.code > a {
+.chord > a {
   margin-right: 6px;
 }
 
-.code > span {
+.chord > span {
   margin-right: 12px;
+}
+
+.chord-only {
+  padding-right: 25px;
 }
 
 .info {
@@ -210,9 +226,10 @@ export default {
     padding: 3%;
 }
 
-.lyric > td {
-  padding: 0px;
-  border:0px;
+.lyric {
+    border:0px;
+    height: 20px;
+    padding: 0px;
 }
 
 .title {
@@ -233,8 +250,8 @@ export default {
 }
 
 .words > table {
-  min-height: 20px;
-  padding-right: 25px;
+  border-spacing: 0mm;
+  padding: 0px;
 }
 
 </style>
