@@ -47,7 +47,7 @@ export default {
         },
         {
           Chords: ["C","G"],
-          Lyrics: ["This is lyric"]
+          Lyrics: ["This is ","lyric"]
         },
         {
           Chords: [],
