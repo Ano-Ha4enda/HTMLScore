@@ -28,7 +28,7 @@ J-Total music (https://music.j-total.net/)
 * **カポを変更することによるコードの移調は未実装です。**
 
 ## How to make Txt File
-`Title: `, `Key: `, `Artist: `, `Capo: `, `ScrollSpeed: `で始まる行は、それぞれ曲情報として認s識します。同じ情報がファイル内に複数ある場合は、最も後ろにあるものを優先します。
+`Title: `, `Key: `, `Artist: `, `Capo: `, `ScrollSpeed: `で始まる行は、それぞれ曲情報として認識します。同じ情報がファイル内に複数ある場合は、最も後ろにあるものを優先します。
 
 * `Title` 曲のタイトル
 * ` Key` デフォルトはCです
