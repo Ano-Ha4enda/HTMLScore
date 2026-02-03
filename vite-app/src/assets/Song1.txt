@@ -1,0 +1,15 @@
+Title: Song1
+Key: A
+Artist: Rintaro
+Capo: 2
+ScrollSpeed: 12
+
+@C;F;G
+column 1;だよ
+
+@F;G;C
+column 2;だよ
+column 3だよ
+@CM7;FM7;G7
+@F;G;C
+column 4;だね
