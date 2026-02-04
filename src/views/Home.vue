@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="main">
     <div class="title">{{ Title }}</div>
     <div class="info">
       <input type="file" @change="loadTxt">
