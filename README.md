@@ -14,7 +14,7 @@ J-Total music (https://music.j-total.net/)
 
 ブラウザアプリです。Vue.jsを使用しており、現状はgit pagesで動作しています。以下のリンクからご利用いただけます。
 
-[HTMLScore - git pages](https://halfrighter.github.io/HTMLScore/)
+[HTMLScore - git pages](https://ano-ha4enda.github.io/HTMLScore/)
 
 ## How to use
 1. ファイル選択ボタンをクリックし、該当のテキストファイルを開きます。
@@ -62,7 +62,7 @@ J-Total music (https://music.j-total.net/)
 ## Warning
 あくまで私的利用しか想定していません。Txtファイルの公開はしていないのでサービス自体は著作権に抵触していないはずです。
 
-著作権で守られている曲についてこのサービスで使えるフォーマットを勝手に後悔するのはおそらくアウトなのでお気をつけください。ご利用は自己責任でお願いします。
+著作権で守られている曲についてこのサービスで使えるフォーマットを勝手に公開するのはおそらくアウトなのでお気をつけください。ご利用は自己責任でお願いします。
 
 ***
 Lyric and Code Viewer made of vue.js
