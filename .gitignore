@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
-#/dist
+/dist
+dist/
 
 # local env files
 .env.local
@@ -23,3 +24,9 @@ yarn-error.log*
 *.txt
 !Song1.txt
 /old
+
+# Vite cache
+.vite/
+
+# Test coverage
+coverage/
