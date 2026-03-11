@@ -17,6 +17,10 @@ export default {
 </script>
 
 <style>
+#app {
+  width: 100%;
+}
+
 main {
   padding: 12px;
 }

@@ -194,7 +194,7 @@ export default {
     color: black;
     border-color: black;
     border-style: double;
-    margin: 5% 20px 5% 5%;
+    margin: 5px 5px 5px 5px;
     padding: 3%;
 }
 
