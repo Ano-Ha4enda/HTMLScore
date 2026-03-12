@@ -2,6 +2,7 @@
 node_modules
 /dist
 dist/
+/docs/copilot-advise
 
 # local env files
 .env.local
